@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS from this link we import our file directly from cdn or from local file and must have internet connection -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Number Guessing Game</title>
+
+    
+  </head>
+  <body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 mx-auto">
+                <h4 class="text-center bg-primary text-white mb-5" style="padding: top 25px;">Number Guesssing Game</h4>
+              
+               <div id="inputForm">
+                <div class="mb-3">
+                  <label for="userInputNumber" class="form-label">Your input</label>
+                  <input type="number" class="form-control" id="userInputNumber" placeholder="give any number">
+                </div>
+
+                <button type="button" class="btn btn-secondary" id="submitButton">Submit input</button>
+              </div>                    
+                  <p id ="result" class="text-danger my-3"></p>
+
+                  <ul class="list-group mt-4" id="userInputListElement">
+                    <li class="list-group-item active">
+                      Your Inputs
+                    </li>
+                    </ul>
+                
+                  <div class="alert alert-success"id="succesMessageBlock" role="alert" style="display: none;">
+                    You have guessed correctly.
+                  </div>
+                  
+            </div>
+
+            
+
+            <div class="col-4"></div>
+        </div>
+    </div>
+
+    <script>
+      //step 1-our program should fix a number.
+      var fixnum = Math.floor((Math.random() * 100) + 1);
+      console.log(Math.floor((Math.random() * 100) + 1));
+      var usertries = 0;
+      
+      //step 2- when submit button is clicked,we need to fetch user input.
+      //clicked event performed.
+      //quering using the selector(by id or by class) have concept DOM(document object model) js supports.
+      var submitButtonElement = document.getElementById('submitButton');
+      console.log(submitButtonElement);
+      submitButtonElement.addEventListener("click", function(){
+        // update user tries.
+       
+        console.log('submit button has been clicked.');
+
+        var userFormInput = document.getElementById('userInputNumber');
+        console.log(userFormInput);
+
+        var userFormInputValue = userFormInput.value;
+        console.log('user from input value:',userFormInputValue);
+
+        if(userFormInputValue == ''){
+          alert('Input cannot be empty.Give a value.');
+          return;
+        }
+
+       //update user input value on the list.
+        var userInputListElement = document.getElementById('userInputListElement');
+        console.log(userInputListElement);
+
+        var newListItem = document.createElement("LI");                 // Create a <li> node
+        var textnode = document.createTextNode(userFormInputValue); 
+        newListItem.classList.add("list-group-item");        // Create a text node
+        newListItem.appendChild(textnode);  
+        
+        userInputListElement.appendChild(newListItem);                            // Append the text to <li>
+     
+        
+      // step 3- check wether user input is equal to programs number.
+      //step 4- if number guessed is correct, show msg that user wins.
+     
+      var resultElement = document.getElementById('result');
+
+      if(userFormInputValue  == fixnum){
+        console.log('you have guessed correctly.');
+      
+        var succesMessageElement = document.getElementById('succesMessageBlock');
+        console.log(succesMessageElement);
+        succesMessageElement.style.display = "block";
+
+        resultElement.innerText = '';
+
+        var inputFormElement = document.getElementById('inputForm');
+        inputFormElement.style.display = "none";
+      }
+      //step 5- if number guessed is incorrect,and is less or greater than programs numbers than give hint.
+
+      if(userFormInputValue < fixnum){
+      console.log('Wrong guess,your number is less than fix number.');
+      resultElement.innerText = 'Your guess is wrong, your number is less';
+    }
+
+      if(userFormInputValue > fixnum){
+      console.log('Wrong guess,your number is greater than fix number.');
+      resultElement.innerText = 'Your guess is wrong, your number is high';
+      }
+      });
+      
+      
+      
+      //RULE- that user should guess within 10 tries.
+    </script>
+
+  </body>
+</html>
