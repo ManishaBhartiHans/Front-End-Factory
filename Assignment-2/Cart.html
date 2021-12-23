@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Shopping Details!</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Simple Cart</span>
+        </div>
+      </nav>
+      
+    <div class="container mt-5">
+        <div class ="row">
+            <div class ="col-4">
+              <div style="display: flex;"><p><img src="cartimage.png" width="45"> <h2>Cart Items</h2></div>
+                <Form id ="cartForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                      </div>
+
+                    <div class="mb-3">
+                        <label for="item1" class="form-label">Item 1 Amount</label>
+                        <input type="number" class="form-control" id="item1" required>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="item2" class="form-label">Item 2 Amount</label>
+                        <input type="number" class="form-control" id="item2" required>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="item3" class="form-label">Item 3 Amount</label>
+                        <input type="number" class="form-control" id="item3" required>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary w-100">Submit</button>
+                                    </Form>
+            </div>
+        <div class="col-8"> 
+          <div style="display: flex;"><p><img src="cartdetails.png" width="45"><h2> Cart Details</h2></p></div>
+         <p><strong id ="namePlaceHolder"></strong> Cart</p>
+         <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+               item 1 Amount
+              <span id ="item--1-details">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                item 2 Amount
+              <span id ="item--2-details">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                item 3 Amount
+              <span id ="item--3-details">3</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Total Cart Value
+              <span id = "total-cart-value">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Highest Cart Value
+              <span id="Highest-cart-value">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Lowest Cart Value
+              <span id="lowest-cart-value">1</span>
+            </li>
+          </ul>
+        </div>
+        </div>
+
+    </div>
+    <script>
+      var cartFormElement = document.getElementById('cartForm');
+
+      function addNameToDetails()
+      {
+        var nameElement = document.getElementById('name');
+        let formattedName = nameElement.value.toUpperCase() + " 's";
+       document.getElementById('namePlaceHolder').innerText = formattedName;
+      }
+      
+       function addAmountstoDetails()
+       {
+         let Rs;
+         document.getElementById('item--1-details').innerText = document.getElementById('item1').value + " Rs";
+       
+        document.getElementById('item--2-details').innerText = document.getElementById('item2').value + " Rs";
+
+        document.getElementById('item--3-details').innerText = document.getElementById('item3').value + " Rs";
+        }
+
+       function addTotalCartValuesToDetails(){
+         let totalValue = parseInt(document.getElementById('item1').value) 
+         + parseInt(document.getElementById('item2').value)
+         + parseInt(document.getElementById('item3').value);
+
+         document.getElementById('total-cart-value').innerText = totalValue + " Rs";
+          }
+
+          function HighestAndLowestCartValues()
+          {  // let build an array with values ['22','26','8']
+            let item1Value = document.getElementById('item1').value;
+            let item2Value = document.getElementById('item2').value;
+            let item3Value = document.getElementById('item3').value;
+             
+            let cartitems = [item1Value,item2Value,item3Value];
+            console.log(cartitems);
+              
+            var highestValue =  parseInt(cartitems[0]);
+            var lowestValue = parseInt(cartitems[0]);
+            for(let index = 0;index < cartitems.length; index++)
+            { 
+              if(parseInt(cartitems[index]) > highestValue){
+                highestValue = (parseInt(cartitems[index]));
+              }
+               
+              if(parseInt(cartitems[index]) < lowestValue)
+               lowestValue = (parseInt(cartitems[index]));
+
+            }
+           document.getElementById('Highest-cart-value').innerText  = highestValue + " Rs";
+           document.getElementById('lowest-cart-value').innerText = lowestValue + " Rs";
+          }
+      cartFormElement.addEventListener('submit',function(event){
+       event.preventDefault();
+       console.log('hello');
+       addNameToDetails();
+       addAmountstoDetails();
+       addTotalCartValuesToDetails();
+       HighestAndLowestCartValues();
+            })
+    </script>
+  </body>
+</html>
